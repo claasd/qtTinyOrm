@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<database name="db">
+	<table name="customer">
+                <column name="id" type="varchar" size ="64" primaryKey="true" />
+                <column name="hidden" type="boolean" default="false" null ="false" />
+                <column name="salutation" type="varchar" null="false" size="64" default="" />
+                <column name="company" type="varchar" size="128" default="" />
+                <column name="last_name" type="varchar" size="128" default="" />
+                <column name="first_name" type="varchar" size="128" default="" />
+		<column name="address" type="longvarchar" default="" />
+		<column name="zip_code" type="varchar" size="8"  default="00000" />
+		<column name="city" type="varchar" size="128" default="" />
+		<column name="email_address" type="varchar" size="255" default="" />
+		<column name="phone_number1" type="varchar" size="64" default="" />
+		<column name="phone_number2" type="varchar" size="64" default="" />
+		<column name="fax_number" type="varchar" size="64" default="" />
+		<column name="remarks" type="longvarchar" />
+                <column name="created_at" type="datetime" />
+                <column name="modified_at" type="datetime" />
+	</table>
+	
+	<table name="account">
+                <column name="id" type="varchar" size ="64" primaryKey="true" />
+		<column name="is_offer" type="boolean" />
+                <column name="is_hidden" type="boolean" />
+		<column name="use_tax" type="boolean" />
+		<column name="title" type="varchar" size="255" />
+		<column name="date" type="date" />
+                <column name="advanced_pay" type="decimal" size="10" precision="2" />
+                <column name="extra_text" type="longvarchar" />
+                <column name="customer_name" type="varchar" size="255" />
+                <column name="customer_id" type="varchar" size="64" />
+		<foreign-key foreignTable="customer">
+			<reference local="customer_id" foreign="id"/>
+		</foreign-key>
+                <column name="saved_customer_id" type="varchar" size="64" />
+		<foreign-key foreignTable="customer">
+			<reference local="saved_customer_id" foreign="id"/>
+		</foreign-key>
+		<column name="price" type="decimal" size="10" precision="2" />
+                <column name="created_at" type="datetime" />
+                <column name="modified_at" type="datetime" />
+	</table>
+	
+	<table name="account_item">
+		<column name="id" type="integer" primaryKey="true" autoIncrement="true" />
+                <column name="account_id" type="varchar" size="64" />
+		<foreign-key foreignTable="account">
+			<reference local="account_id" foreign="id"/>
+		</foreign-key>
+                <column name="quantity" type="decimal" size="10" precision="2" />
+		<column name="unit" type="varchar" size="16"/>
+		<column name="name" type="varchar" size="64"/>
+		<column name="is_fixed" type="boolean"/>
+		<column name="price" type="decimal" size="10" precision="2" />
+	</table>
+	
+	<table name="settings">
+		<column name="key" type="varchar" size="64" primaryKey="true" />
+		<column name="value" type="text" />
+	</table>
+	
+</database>
